@@ -5,5 +5,6 @@ services:
   runtime: static
   repo: https://github.com/photon737/image
   buildCommand: pip install Flask
-  staticPublishPath: python3 app.py
+  startCommand: python3 app.py
+  # staticPublishPath: python3 app.py
 version: "1"
