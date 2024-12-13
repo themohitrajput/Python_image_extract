@@ -1,0 +1,8 @@
+# Exported from Render on 2024-12-13T13:52:53Z
+services:
+- type: web
+  name: image
+  runtime: static
+  repo: https://github.com/photon737/image
+  staticPublishPath: python3 app.py
+version: "1"
