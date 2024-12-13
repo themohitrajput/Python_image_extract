@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Upload</title>
+</head>
+<body>
+  <h1>Upload Image for Processing</h1>
+  <form id="uploadForm">
+    <input type="file" id="imageInput" accept="image/*" required />
+    <button type="submit">Upload Image</button>
+  </form>
+  <p id="response"></p>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const imageInput = document.getElementById('imageInput');
+      const responseElement = document.getElementById('response');
+
+      if (!imageInput.files.length) {
+        responseElement.textContent = 'Please select an image file.';
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', imageInput.files[0]);
+
+      try {
+        const response = await fetch('/upload-image', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          responseElement.textContent = `Success! Image width: ${result.width}, height: ${result.height}`;
+        } else {
+          responseElement.textContent = `Error: ${result.error}`;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        responseElement.textContent = 'An error occurred. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
